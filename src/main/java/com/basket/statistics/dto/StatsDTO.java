@@ -21,6 +21,8 @@ public class StatsDTO implements Serializable {
     private int tirRateLoin;
     private int rebondOff;
     private int rebondDeff;
+    private int lfRate;
+    private int lfMarque;
     private long joueurId;
     private long totalId;
 

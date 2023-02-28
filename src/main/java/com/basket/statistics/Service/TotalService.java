@@ -12,7 +12,9 @@ public interface TotalService {
 
     int totalRebond( long id);
 
-    double pourcentage( long id);
+    double pourcentageLF(long id);
+
+    double pourcentage(long id);
 
     double pourcentageDeuxPts(long id);
 

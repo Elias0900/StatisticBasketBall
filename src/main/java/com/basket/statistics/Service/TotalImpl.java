@@ -114,6 +114,21 @@ public class TotalImpl implements TotalService{
     }
 
     @Override
+    public double pourcentageLF( long id) {
+        Optional<Stats> recupStat = statsRepo.findById(id);
+        if (recupStat.isPresent() && recupStat.get().getTotal().getId() != 0) {
+            Stats stats = recupStat.get();
+            Total total1 = stats.getTotal();
+            total1.setPourcentageTroisPts(( (double) stats.getLfMarque() / (double) stats.getLfRate())*100);
+            repo.save(total1);
+            TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
+            return dto.getPourcentageTroisPts();
+        } else {
+            return 0;
+        }
+    }
+
+    @Override
     public double pourcentage(long id) {
         Optional<Stats> recupStat = statsRepo.findById(id);
         if (recupStat.isPresent() && recupStat.get().getTotal().getId() != 0) {

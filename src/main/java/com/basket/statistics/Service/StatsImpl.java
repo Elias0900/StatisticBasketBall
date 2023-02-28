@@ -223,4 +223,34 @@ public class StatsImpl implements StatsService{
             return null;
         }
     }
+
+    @Override
+    public StatsDTO ajoutLFMarque(long id) {
+        Optional<Stats> recupStat = repo.findById(id);
+        if (recupStat.isPresent()) {
+            Stats stats = recupStat.get();
+            int currentValue = stats.getLfMarque(); // Récupération de la valeur actuelle du champ
+            int newValue = currentValue + 1; // Incrément de la valeur actuelle
+            stats.setLfMarque(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+            repo.save(stats);
+            return DtoConvertisseur.convert(stats, StatsDTO.class);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public StatsDTO ajoutLFRate(long id) {
+        Optional<Stats> recupStat = repo.findById(id);
+        if (recupStat.isPresent()) {
+            Stats stats = recupStat.get();
+            int currentValue = stats.getLfRate(); // Récupération de la valeur actuelle du champ
+            int newValue = currentValue + 1; // Incrément de la valeur actuelle
+            stats.setLfRate(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+            repo.save(stats);
+            return DtoConvertisseur.convert(stats, StatsDTO.class);
+        } else {
+            return null;
+        }
+    }
 }

@@ -18,40 +18,47 @@ public class TotalController {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @GetMapping( value = "/{id}")
-    private ResponseEntity<Integer> totalPoint(@PathVariable("id") long id){
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<Integer> totalPoint(@PathVariable("id") long id) {
         int totalDTO = service.totalPoint(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
     }
 
-    @GetMapping( value = "/passe/{id}")
-    private ResponseEntity<Integer> passe( @PathVariable("id") long id){
+    @GetMapping(value = "/passe/{id}")
+    private ResponseEntity<Integer> passe(@PathVariable("id") long id) {
         int totalDTO = service.totalPasse(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
     }
 
-    @GetMapping( value = "/rebond/{id}")
-    private ResponseEntity<Integer> rebond(TotalDTO jDto, @PathVariable("id") long id){
+    @GetMapping(value = "/rebond/{id}")
+    private ResponseEntity<Integer> rebond(TotalDTO jDto, @PathVariable("id") long id) {
         int totalDTO = service.totalRebond(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
     }
 
-    @GetMapping( value = "/deuxpoints/{id}")
-    private ResponseEntity<Double> deuxpoints(@PathVariable("id") long id){
-        double totalDTO = service.pourcentageDeuxPts( id);
+    @GetMapping(value = "/deuxpoints/{id}")
+    private ResponseEntity<Double> deuxpoints(@PathVariable("id") long id) {
+        double totalDTO = service.pourcentageDeuxPts(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
     }
 
 
-    @GetMapping( value = "/troispoints/{id}")
-    private ResponseEntity<Double> troispoints( @PathVariable("id") long id){
-        double totalDTO = service.pourcentageTroisPts( id);
+    @GetMapping(value = "/troispoints/{id}")
+    private ResponseEntity<Double> troispoints(@PathVariable("id") long id) {
+        double totalDTO = service.pourcentageTroisPts(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
     }
 
-    @GetMapping( value = "/pourcentage/{id}")
-    private ResponseEntity<Double> pourcentage(@PathVariable("id") long id){
-        double totalDTO = service.pourcentage( id);
+    @GetMapping(value = "/pourcentagelf/{id}")
+    private ResponseEntity<Double> pourcentageLF(@PathVariable("id") long id) {
+        double totalDTO = service.pourcentageLF(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
+    }
+
+
+    @GetMapping(value = "/pourcentage/{id}")
+    private ResponseEntity<Double> pourcentage(@PathVariable("id") long id) {
+        double totalDTO = service.pourcentage(id);
         return ResponseEntity.status(HttpStatus.CREATED).body(totalDTO);
     }
 

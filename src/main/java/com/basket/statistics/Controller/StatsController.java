@@ -118,4 +118,16 @@ public class StatsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
+    @PostMapping( value = "/lf/{id}" )
+    private ResponseEntity<StatsDTO> lf(@PathVariable("id") long id){
+        StatsDTO statsDTO = service.ajoutLFMarque(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
+    }
+
+    @PostMapping( value = "/lfrate/{id}" )
+    private ResponseEntity<StatsDTO> lfRate(@PathVariable("id") long id){
+        StatsDTO statsDTO = service.ajoutLFRate(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
+    }
+
 }

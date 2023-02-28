@@ -29,6 +29,9 @@ public class Stats implements Serializable {
     private int paniersLoins;
     private int tirRateLoin;
 
+    private int lfRate;
+    private int lfMarque;
+
     @ToString.Exclude
     @ManyToOne
     private Joueur joueur;

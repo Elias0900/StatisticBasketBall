@@ -33,4 +33,8 @@ public interface StatsService {
     StatsDTO ajoutRebondOff(long id);
 
     StatsDTO ajoutrebondDeff(long id);
+
+    StatsDTO ajoutLFMarque(long id);
+
+    StatsDTO ajoutLFRate(long id);
 }

@@ -19,10 +19,9 @@ public class Total {
     private int totalPoints;
     private int totalRebonds;
     private int totalPasseD;
-
     private double pourcentageDeuxPts;
     private double pourcentageTroisPts;
-
+    private double pourcentageLF;
     private double pourcentage;
 
     @ToString.Exclude
