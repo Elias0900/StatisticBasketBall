@@ -6,7 +6,7 @@ import com.basket.statistics.Repo.StatsRepo;
 import com.basket.statistics.dto.StatsDTO;
 import com.basket.statistics.entities.Joueur;
 import com.basket.statistics.entities.Stats;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

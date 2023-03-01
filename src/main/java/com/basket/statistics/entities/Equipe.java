@@ -1,6 +1,6 @@
 package com.basket.statistics.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +27,7 @@ public class Equipe implements Serializable {
     @OneToMany
     private List<Joueur> joueur;
     @ToString.Exclude
-    @OneToOne
-    private Match match;
+    @OneToMany
+    @Column(nullable = true)
+    private List<Match> match;
 }

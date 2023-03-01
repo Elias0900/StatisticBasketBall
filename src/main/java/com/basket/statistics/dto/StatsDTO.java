@@ -1,7 +1,5 @@
 package com.basket.statistics.dto;
 
-import com.basket.statistics.entities.Joueur;
-import jakarta.persistence.OneToOne;
 import lombok.*;
 
 import java.io.Serializable;

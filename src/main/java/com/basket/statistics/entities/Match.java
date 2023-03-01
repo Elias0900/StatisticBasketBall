@@ -1,6 +1,6 @@
 package com.basket.statistics.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,10 +22,10 @@ public class Match implements Serializable {
     private long id;
 
     @OneToOne
-    private Equipe domicile;
+    private Equipe equipeDomicileIdequipeDomicileId;
 
     @OneToOne
-    private Equipe exterieur;
+    private Equipe equipeExterieurId;
 
     private int scoreDomicile;
 

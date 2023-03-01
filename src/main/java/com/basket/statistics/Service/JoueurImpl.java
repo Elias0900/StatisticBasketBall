@@ -4,7 +4,7 @@ import com.basket.statistics.MapperDto.DtoConvertisseur;
 import com.basket.statistics.Repo.JoueurRepo;
 import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.entities.Joueur;
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
