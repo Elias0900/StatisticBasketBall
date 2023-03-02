@@ -9,6 +9,8 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.repository.query.Param;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -30,5 +32,15 @@ public class Joueur implements Serializable {
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL)
     private List<Stats> stats;
+
+    @PostPersist
+    private void addStats() {
+        Stats stats = new Stats();
+        stats.setJoueur(this);
+        this.stats = Collections.singletonList(stats);
+    }
+
+
+
 
 }
