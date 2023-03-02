@@ -9,4 +9,7 @@ public interface EquipeRepo extends JpaRepository<Equipe, Long> {
 
     @Query("from Equipe e where e.nomEquipe= :nom ")
     Equipe findByNomEquipe(@Param("nom") String name);
+
+
+
 }

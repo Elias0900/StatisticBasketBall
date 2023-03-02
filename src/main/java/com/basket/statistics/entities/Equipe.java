@@ -24,10 +24,9 @@ public class Equipe implements Serializable {
     @Column(unique = true)
     private String nomEquipe;
     @ToString.Exclude
-    @OneToMany
+    @OneToMany(mappedBy = "equipe")
     private List<Joueur> joueur;
     @ToString.Exclude
     @OneToMany
-    @Column(nullable = true)
     private List<Match> match;
 }

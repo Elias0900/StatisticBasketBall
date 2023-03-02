@@ -2,6 +2,7 @@ package com.basket.statistics.Controller;
 
 import com.basket.statistics.Service.JoueurService;
 import com.basket.statistics.dto.JoueurDTO;
+import com.basket.statistics.exception.JoueurException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class JoueurController {
     private ObjectMapper objectMapper;
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    private ResponseEntity<JoueurDTO> newJoueur(@RequestBody JoueurDTO jDto){
+    private ResponseEntity<JoueurDTO> newJoueur(@RequestBody JoueurDTO jDto) throws JoueurException {
         JoueurDTO joueurDTO = service.saveOrUpdate(jDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(joueurDTO);
     }
@@ -32,15 +33,21 @@ public class JoueurController {
         return new ResponseEntity<>(joueurDTOList,HttpStatus.OK);
     }
 
+    @GetMapping(value = "/equipe/{id}")
+    private ResponseEntity<List<JoueurDTO>> joueurParTeam(@PathVariable("id") long id){
+        List<JoueurDTO> joueurDTOList = service.getByTeamId(id);
+        return new ResponseEntity<>(joueurDTOList,HttpStatus.OK);
+    }
+
     @GetMapping(value = "{id}")
-    private ResponseEntity<JoueurDTO> findById(@PathVariable("id") long id){
+    private ResponseEntity<JoueurDTO> findById(@PathVariable("id") long id) throws  JoueurException{
         JoueurDTO joueurDTOList = service.findById(id);
         return new ResponseEntity<>(joueurDTOList,HttpStatus.OK);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    private ResponseEntity<JoueurDTO> modifierJoueur(@RequestBody JoueurDTO jDto){
-        return  new ResponseEntity<>(service.saveOrUpdate(jDto),HttpStatus.OK);
+    private ResponseEntity<JoueurDTO> modifierJoueur(@RequestBody JoueurDTO jDto)throws JoueurException{
+        return  new ResponseEntity<>(service.update(jDto),HttpStatus.OK);
 
     }
 

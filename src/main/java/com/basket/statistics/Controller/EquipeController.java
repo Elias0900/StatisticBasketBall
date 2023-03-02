@@ -3,6 +3,7 @@ package com.basket.statistics.Controller;
 import com.basket.statistics.Service.EquipeService;
 import com.basket.statistics.dto.EquipeDTO;
 import com.basket.statistics.dto.JoueurDTO;
+import com.basket.statistics.exception.EquipeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,14 +27,20 @@ public class EquipeController {
         return new ResponseEntity<>(equipeDTOS, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<EquipeDTO> getById(@PathVariable("id")long id) throws EquipeException{
+        EquipeDTO equipeDTO = service.findById(id);
+        return new ResponseEntity<>(equipeDTO, HttpStatus.OK);
+    }
+
     @PostMapping(consumes = "application/json", produces = "application/json")
-    private ResponseEntity<EquipeDTO> nouvelEquipe(@RequestBody EquipeDTO e){
-        EquipeDTO equipeDTO = service.saveOrUpdate(e);
+    private ResponseEntity<EquipeDTO> nouvelEquipe(@RequestBody EquipeDTO e) throws EquipeException {
+        EquipeDTO equipeDTO = service.saveOrUpdate(e) ;
         return ResponseEntity.status(HttpStatus.CREATED).body(equipeDTO);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    private ResponseEntity<EquipeDTO> modifierJoueur(@RequestBody EquipeDTO eDto){
+    private ResponseEntity<EquipeDTO> modifierJoueur(@RequestBody EquipeDTO eDto) throws EquipeException{
         return  new ResponseEntity<>(service.saveOrUpdate(eDto),HttpStatus.OK);
 
     }

@@ -22,7 +22,7 @@ public class Match implements Serializable {
     private long id;
 
     @OneToOne
-    private Equipe equipeDomicileIdequipeDomicileId;
+    private Equipe equipeDomicileId;
 
     @OneToOne
     private Equipe equipeExterieurId;
