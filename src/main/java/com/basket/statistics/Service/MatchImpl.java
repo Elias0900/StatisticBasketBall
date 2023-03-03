@@ -23,8 +23,7 @@ public class MatchImpl implements MatchService{
     @Autowired
     private MatchRepo repo;
 
-    @Autowired
-    private JoueurRepo jRepo;
+
 
     @Autowired
     private StatsService statsService;
@@ -82,12 +81,28 @@ public class MatchImpl implements MatchService{
                 List<Stats> statsList = joueur.getStats();
                 for (Stats stats : statsList) {
                         statsService.pointsMarque(stats.getId());
-                        match.setScoreDomicile(match.getScoreDomicile() + 2);
                         return match.getScoreDomicile();
                 }
             }
         }
-        return 0; // ou une autre valeur par défaut si le joueur ou le match n'est pas trouvé
+        return match.getScoreExterieur(); // ou une autre valeur par défaut si le joueur ou le match n'est pas trouvé
+    }
+
+    @Override
+    public int marquer2PointExt(long matchId, long joueurId) {
+        Match match = repo.getReferenceById(matchId);
+        Equipe equipe = match.getEquipeExterieurId();
+        List<Joueur> joueurs = equipe.getJoueur();
+        for (Joueur joueur : joueurs) {
+            if (joueur.getId() == joueurId) {
+                List<Stats> statsList = joueur.getStats();
+                for (Stats stats : statsList) {
+                    statsService.pointsMarque(stats.getId());
+                    return match.getScoreExterieur();
+                }
+            }
+        }
+        return match.getScoreExterieur(); // ou une autre valeur par défaut si le joueur ou le match n'est pas trouvé
     }
 
 
@@ -95,30 +110,68 @@ public class MatchImpl implements MatchService{
     public int marquer3Point(long matchId, long joueurId) {
         Match match = repo.getReferenceById(matchId);
         Equipe equipe = match.getEquipeDomicileId();
-        List<Joueur> joueur1 = equipe.getJoueur();
-        for (Joueur j : joueur1){
-            if (j.getId() == joueurId) {
-                Stats stats = (Stats) j.getStats();
-                statsService.tirTroisPoints(stats.getId());
-                match.setScoreDomicile(+3);
+        List<Joueur> joueurs = equipe.getJoueur();
+        for (Joueur joueur : joueurs) {
+            if (joueur.getId() == joueurId) {
+                List<Stats> statsList = joueur.getStats();
+                for (Stats stats : statsList) {
+                    statsService.tirTroisPoints(stats.getId());
+                    return match.getScoreDomicile();
+                }
             }
         }
         return match.getScoreDomicile();
     }
 
     @Override
+    public int marquer3PointExt(long matchId, long joueurId) {
+        Match match = repo.getReferenceById(matchId);
+        Equipe equipe = match.getEquipeExterieurId();
+        List<Joueur> joueurs = equipe.getJoueur();
+        for (Joueur joueur : joueurs) {
+            if (joueur.getId() == joueurId) {
+                List<Stats> statsList = joueur.getStats();
+                for (Stats stats : statsList) {
+                    statsService.tirTroisPoints(stats.getId());
+                    return match.getScoreExterieur();
+                }
+            }
+        }
+        return match.getScoreExterieur();
+    }
+
+    @Override
     public int marquer1Point(long matchId, long joueurId) {
         Match match = repo.getReferenceById(matchId);
         Equipe equipe = match.getEquipeDomicileId();
-        List<Joueur> joueur1 = equipe.getJoueur();
-        for (Joueur j : joueur1){
-            if (j.getId() == joueurId) {
-                Stats stats = (Stats) j.getStats();
-                statsService.ajoutLFMarque(stats.getId());
-                match.setScoreDomicile(+1);
+        List<Joueur> joueurs = equipe.getJoueur();
+        for (Joueur joueur : joueurs) {
+            if (joueur.getId() == joueurId) {
+                List<Stats> statsList = joueur.getStats();
+                for (Stats stats : statsList) {
+                    statsService.ajoutLFMarque(stats.getId());
+                    return match.getScoreDomicile();
+                }
             }
         }
         return match.getScoreDomicile();
+    }
+
+    @Override
+    public int marquer1PointExt(long matchId, long joueurId) {
+        Match match = repo.getReferenceById(matchId);
+        Equipe equipe = match.getEquipeExterieurId();
+        List<Joueur> joueurs = equipe.getJoueur();
+        for (Joueur joueur : joueurs) {
+            if (joueur.getId() == joueurId) {
+                List<Stats> statsList = joueur.getStats();
+                for (Stats stats : statsList) {
+                    statsService.ajoutLFMarque(stats.getId());
+                    return match.getScoreExterieur();
+                }
+            }
+        }
+        return match.getScoreExterieur();
     }
 
 

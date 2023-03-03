@@ -44,7 +44,7 @@ public class TotalImpl implements TotalService{
             int troisPoints = stats.getPaniersLoins(); // Récupération de la valeur actuelle du champ
             int deuxPointsTotal = deuxPoints * 2; // Incrément de la valeur actuelle
             int troisPointsTotal = troisPoints * 3; // Incrément de la valeur actuelle
-            total1.setTotalPoints(deuxPointsTotal + troisPointsTotal);
+            total1.setTotalPoints(deuxPointsTotal + troisPointsTotal + stats.getLfMarque());
             repo.save(total1);
             TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto.getTotalPoints();
@@ -138,7 +138,7 @@ public class TotalImpl implements TotalService{
                     (
                             ((double) stats.getPaniersProche() + (double) stats.getPaniersLoins())
                                     /
-                                    ((double) stats.getTirRateProche() + (double) stats.getTirRateProche())
+                                    (double) stats.getTirTotal()
                     ) * 100
             );
             repo.save(total1);

@@ -6,10 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.repository.query.Param;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +33,9 @@ public class Joueur implements Serializable {
 
     @PostPersist
     private void addStats() {
+        Total total = new Total();
         Stats stats = new Stats();
+        stats.setTotal(total);
         stats.setJoueur(this);
         this.stats = Collections.singletonList(stats);
     }

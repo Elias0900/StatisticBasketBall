@@ -6,7 +6,6 @@ import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.entities.Joueur;
 import javax.transaction.Transactional;
 
-import com.basket.statistics.entities.Stats;
 import com.basket.statistics.exception.JoueurException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +20,6 @@ public class JoueurImpl implements JoueurService {
 
     @Autowired
     private JoueurRepo jRepo;
-
-
-    @Autowired
-    private StatsService statsService;
 
 
     @Override
@@ -65,6 +60,7 @@ public class JoueurImpl implements JoueurService {
         jExistant.setNom(joueur.getNom());
         jExistant.setPrenom(joueur.getPrenom());
         jExistant.setNumero(joueur.getNumero());
+        jExistant.setEquipe(joueur.getEquipe());
         // Enregistrer les modifications dans la base de données
         joueur = jRepo.saveAndFlush(jExistant);
         return DtoConvertisseur.convert(joueur, JoueurDTO.class);

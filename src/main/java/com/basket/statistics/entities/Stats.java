@@ -28,6 +28,7 @@ public class Stats implements Serializable {
     private int contre;
     private int paniersLoins;
     private int tirRateLoin;
+    private int tirTotal;
 
     private int lfRate;
     private int lfMarque;
@@ -39,5 +40,7 @@ public class Stats implements Serializable {
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     private Total total;
+
+
 
 }

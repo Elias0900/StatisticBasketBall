@@ -45,9 +45,39 @@ public class MatchController {
         return ResponseEntity.status(HttpStatus.OK).body(id);
     }
 
-    @GetMapping(value = "/scoredomicile/{id}/joueur/{jid}")
+    @GetMapping(value = "/scoredomicile2pts/{id}/joueur/{jid}")
     private ResponseEntity<Integer> domicile(@PathVariable("id") long id, @PathVariable("jid") long jid) {
         int totalDTO = service.marquer2Point(id, jid);
+        return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
+
+    @GetMapping(value = "/scoreext2pts/{id}/joueur/{jid}")
+    private ResponseEntity<Integer> exterieur(@PathVariable("id") long id, @PathVariable("jid") long jid) {
+        int totalDTO = service.marquer2PointExt(id, jid);
+        return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
+
+    @GetMapping(value = "/scoredomicile3pts/{id}/joueur/{jid}")
+    private ResponseEntity<Integer> domicile3 (@PathVariable("id") long id, @PathVariable("jid") long jid) {
+        int totalDTO = service.marquer3Point(id, jid);
+        return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
+
+    @GetMapping(value = "/scoreext3pts/{id}/joueur/{jid}")
+    private ResponseEntity<Integer> ext3 (@PathVariable("id") long id, @PathVariable("jid") long jid) {
+        int totalDTO = service.marquer3PointExt(id, jid);
+        return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
+
+    @GetMapping(value = "/scoredomicile1pts/{id}/joueur/{jid}")
+    private ResponseEntity<Integer> domicileLF(@PathVariable("id") long id, @PathVariable("jid") long jid) {
+        int totalDTO = service.marquer1Point(id, jid);
+        return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
+
+    @GetMapping(value = "/scoreext1pts/{id}/joueur/{jid}")
+    private ResponseEntity<Integer> extLF(@PathVariable("id") long id, @PathVariable("jid") long jid) {
+        int totalDTO = service.marquer1PointExt(id, jid);
         return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
     }
 
