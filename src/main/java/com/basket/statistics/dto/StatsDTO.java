@@ -9,19 +9,21 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class StatsDTO implements Serializable {
     private long id;
-    private int fautes;
-    private int passeD;
-    private int ballonPerdu;
-    private int paniersProche;
-    private int tirRateProche;
-    private int contre;
-    private int paniersLoins;
-    private int tirRateLoin;
-    private int rebondOff;
-    private int rebondDeff;
-    private int lfRate;
-    private int lfMarque;
-    private int tirTotal;
+    private double fautes;
+    private double passeD;
+    private double ballonPerdu;
+    private double paniersProche;
+    private double tirRateProche;
+    private double paniersLoins;
+    private double tirRateLoin;
+    private double lfRate;
+    private double lfMarque;
+    private double tirTotal;
+    private double rebondOff;
+    private double rebondDeff;
+    private double contre;
+    private double interception;
+    private long matchId;
     private long joueurId;
     private long totalId;
 

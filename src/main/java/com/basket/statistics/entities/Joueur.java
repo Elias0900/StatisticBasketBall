@@ -8,7 +8,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -27,18 +26,11 @@ public class Joueur implements Serializable {
     @ToString.Exclude
     @ManyToOne
     private Equipe equipe;
-    @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Stats> stats;
 
-    @PostPersist
-    private void addStats() {
-        Total total = new Total();
-        Stats stats = new Stats();
-        stats.setTotal(total);
-        stats.setJoueur(this);
-        this.stats = Collections.singletonList(stats);
-    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "joueur")
+    @ToString.Exclude
+    private List<Stats> stats;
 
 
 

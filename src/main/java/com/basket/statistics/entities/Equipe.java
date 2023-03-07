@@ -29,4 +29,6 @@ public class Equipe implements Serializable {
     @ToString.Exclude
     @OneToMany
     private List<Match> match;
+
+
 }

@@ -1,6 +1,5 @@
 package com.basket.statistics.Service;
 
-import com.basket.statistics.dto.EquipeDTO;
 import com.basket.statistics.dto.StatsDTO;
 
 import java.util.List;
@@ -9,32 +8,35 @@ public interface StatsService {
     StatsDTO saveOrUpdate(StatsDTO e, long id);
 
     List<StatsDTO> findByJoueurId(long id);
-    StatsDTO pointsMarque(long id);
     List<StatsDTO> getAll();
 
     void suppression(long id);
 
     StatsDTO findById(long id);
 
-    StatsDTO tirRate(long id);
+    StatsDTO pointsMarquev2(long joueurid, long matchId);
 
-    StatsDTO tirTroisPoints(long id);
+    StatsDTO tirRate(long id, long matchId);
 
-    StatsDTO ajoutContre(long id);
+    StatsDTO tirTroisPoints(long id, long matchId);
 
-    StatsDTO tirTroisPointsRate(long id);
+    StatsDTO ajoutContre(long id, long matchId);
 
-    StatsDTO ballonPerduAjout(long id);
+    StatsDTO tirTroisPointsRate(long id, long matchId);
 
-    StatsDTO ajoutFautes(long id);
+    StatsDTO ballonPerduAjout(long id, long matchId);
 
-    StatsDTO ajoutPasse(long id);
+    StatsDTO ajoutFautes(long id, long matchId);
 
-    StatsDTO ajoutRebondOff(long id);
+    StatsDTO ajoutPasse(long id, long matchId);
 
-    StatsDTO ajoutrebondDeff(long id);
+    StatsDTO ajoutInterceptions(long joueurid, long matchId);
 
-    StatsDTO ajoutLFMarque(long id);
+    StatsDTO ajoutRebondOff(long id, long matchId);
 
-    StatsDTO ajoutLFRate(long id);
+    StatsDTO ajoutrebondDeff(long id, long matchId);
+
+    StatsDTO ajoutLFMarque(long id, long matchId);
+
+    StatsDTO ajoutLFRate(long id, long matchId);
 }

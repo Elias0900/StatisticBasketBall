@@ -1,6 +1,5 @@
 package com.basket.statistics.dto;
 
-import com.basket.statistics.entities.Equipe;
 import lombok.*;
 
 import java.io.Serializable;
@@ -12,14 +11,10 @@ import java.util.Date;
 public class MatchDTO  implements Serializable {
 
     private long id;
-
     private long equipeDomicileId;
-
     private long equipeExterieurId;
-
     private int scoreDomicile;
-
     private long scoreExterieur;
-
     private Date date;
+    private long statsId;
 }

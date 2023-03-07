@@ -8,4 +8,5 @@ import java.util.List;
 public interface StatsRepo extends JpaRepository<Stats, Long> {
 
     List<Stats> findByJoueurId(long id);
+    Stats getStatsByJoueurIdAndMatchId(long joueurId, long equipeId);
 }

@@ -18,28 +18,35 @@ public class Stats implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int rebondOff;
-    private int rebondDeff;
-    private int fautes;
-    private int ballonPerdu;
-    private int paniersProche;
-    private int passeD;
-    private int tirRateProche;
-    private int contre;
-    private int paniersLoins;
-    private int tirRateLoin;
-    private int tirTotal;
+    private double rebondOff;
+    private double rebondDeff;
+    private double fautes;
+    private double ballonPerdu;
+    private double paniersProche;
+    private double passeD;
+    private double tirRateProche;
+    private double contre;
+    private double interception;
+    private double paniersLoins;
+    private double tirRateLoin;
+    private double tirTotal;
 
-    private int lfRate;
-    private int lfMarque;
+    private double lfRate;
+    private double lfMarque;
 
     @ToString.Exclude
     @ManyToOne
     private Joueur joueur;
-
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
     private Total total;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private Match match;
+
+    @ManyToOne
+    private Equipe equipe;
 
 
 

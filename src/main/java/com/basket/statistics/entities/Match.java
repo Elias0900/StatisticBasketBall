@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -33,7 +34,7 @@ public class Match implements Serializable {
 
     private Date date;
     @ToString.Exclude
-    @ManyToOne
-    private Stats stats;
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
+    private List<Stats> stats;
 
 }

@@ -59,74 +59,80 @@ public class StatsController {
         return ResponseEntity.status(HttpStatus.OK).body(id);
     }
 
-    @PostMapping( value = "/deuxpoints/{id}" )
-    private ResponseEntity<StatsDTO> ajoutdeuxpoints(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.pointsMarque(id);
+    @PostMapping( value = "/match/{eid}/deuxpoints/{id}" )
+    private ResponseEntity<StatsDTO> ajoutdeuxpoints(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.pointsMarquev2(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/rateproche/{id}" )
-    private ResponseEntity<StatsDTO> tirRate(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.tirRate(id);
+    @PostMapping( value = "/match/{eid}/rateproche/{id}" )
+    private ResponseEntity<StatsDTO> tirRate(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.tirRate(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/troispoints/{id}" )
-    private ResponseEntity<StatsDTO> troispoints(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.tirTroisPoints(id);
+    @PostMapping( value = "/match/{eid}/troispoints/{id}" )
+    private ResponseEntity<StatsDTO> troispoints(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.tirTroisPoints(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/rateloin/{id}" )
-    private ResponseEntity<StatsDTO> rateTroispoints(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.tirTroisPointsRate(id);
+    @PostMapping( value = "/match/{eid}/rateloin/{id}" )
+    private ResponseEntity<StatsDTO> rateTroispoints(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.tirTroisPointsRate(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/fautes/{id}" )
-    private ResponseEntity<StatsDTO> faute(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutFautes(id);
+    @PostMapping( value = "/match/{eid}/fautes/{id}" )
+    private ResponseEntity<StatsDTO> faute(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutFautes(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/bp/{id}" )
-    private ResponseEntity<StatsDTO> bp(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ballonPerduAjout(id);
+    @PostMapping( value = "/match/{eid}/bp/{id}" )
+    private ResponseEntity<StatsDTO> bp(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ballonPerduAjout(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/contres/{id}" )
-    private ResponseEntity<StatsDTO> contres(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutContre(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
-    }
-    @PostMapping( value = "/passe/{id}" )
-    private ResponseEntity<StatsDTO> passe(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutPasse(id);
+    @PostMapping( value = "/match/{eid}/contres/{id}" )
+    private ResponseEntity<StatsDTO> contres(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutContre(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/rebondoff/{id}" )
-    private ResponseEntity<StatsDTO> rebondOff(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutRebondOff(id);
+    @PostMapping( value = "/match/{eid}/inter/{id}" )
+    private ResponseEntity<StatsDTO> interceptions(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutInterceptions(id, eid);
+        return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
+    }
+    @PostMapping( value = "/match/{eid}/passe/{id}" )
+    private ResponseEntity<StatsDTO> passe(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutPasse(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/rebonddeff/{id}" )
-    private ResponseEntity<StatsDTO> rebondDeff(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutrebondDeff(id);
+    @PostMapping( value = "/match/{eid}/rebondoff/{id}" )
+    private ResponseEntity<StatsDTO> rebondOff(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutRebondOff(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/lf/{id}" )
-    private ResponseEntity<StatsDTO> lf(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutLFMarque(id);
+    @PostMapping( value = "/match/{eid}/rebonddeff/{id}" )
+    private ResponseEntity<StatsDTO> rebondDeff(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutrebondDeff(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 
-    @PostMapping( value = "/lfrate/{id}" )
-    private ResponseEntity<StatsDTO> lfRate(@PathVariable("id") long id){
-        StatsDTO statsDTO = service.ajoutLFRate(id);
+    @PostMapping( value = "/match/{eid}/lf/{id}" )
+    private ResponseEntity<StatsDTO> lf(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutLFMarque(id, eid);
+        return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
+    }
+
+    @PostMapping( value = "/match/{eid}/lfrate/{id}" )
+    private ResponseEntity<StatsDTO> lfRate(@PathVariable("id") long id, @PathVariable("eid") long eid){
+        StatsDTO statsDTO = service.ajoutLFRate(id, eid);
         return ResponseEntity.status(HttpStatus.CREATED).body(statsDTO);
     }
 

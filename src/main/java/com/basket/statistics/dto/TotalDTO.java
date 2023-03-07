@@ -1,6 +1,5 @@
 package com.basket.statistics.dto;
 
-import com.basket.statistics.entities.Stats;
 import lombok.*;
 
 @Getter
@@ -9,12 +8,15 @@ import lombok.*;
 @NoArgsConstructor
 public class TotalDTO {
     private long id;
-    private int totalPoints;
-    private int totalRebonds;
-    private int totalPasseD;
+    private double totalPoints;
+    private double totalRebonds;
+    private double totalPasseD;
+    private double totalContre;
+    private double totalInterception;
 
     private double pourcentageDeuxPts;
     private double pourcentageTroisPts;
+    private double pourcentageLF;
 
     private double pourcentage;
     private long statsId;

@@ -1,22 +1,24 @@
 package com.basket.statistics.Service;
 
 import com.basket.statistics.dto.TotalDTO;
+import com.basket.statistics.exception.TotalException;
 
 public interface TotalService {
 
-    TotalDTO saveOrUpdate(TotalDTO totalDTO, long id);
+    TotalDTO saveOrUpdate(TotalDTO totalDTO, long id, long matchId);
 
-    int totalPoint(long id);
+    double totalPoint(long joueurId, long matchId) throws TotalException;
 
-    int totalPasse( long id);
+    double totalContre(long joueurId, long matchId) throws TotalException;
 
-    int totalRebond( long id);
+    double totalPasse(long joueurId, long matchId) throws TotalException;
 
-    double pourcentageLF(long id);
+    double totalInterc(long joueurId, long matchId) throws TotalException;
 
-    double pourcentage(long id);
+    double totalRebond(long joueurId, long matchId) throws TotalException;
+    double pourcentageLF(long id, long matchId) throws TotalException;
 
-    double pourcentageDeuxPts(long id);
-
-    double pourcentageTroisPts( long id);
+    double pourcentage(long joueurId, long matchId) throws TotalException;
+    double pourcentageDeuxPts(long joueurId, long matchId) throws TotalException;
+    double pourcentageTroisPts(long joueurId, long matchId) throws TotalException;
 }

@@ -16,13 +16,15 @@ public class Total {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private int totalPoints;
-    private int totalRebonds;
-    private int totalPasseD;
+    private double totalPoints;
+    private double totalRebonds;
+    private double totalPasseD;
     private double pourcentageDeuxPts;
     private double pourcentageTroisPts;
     private double pourcentageLF;
     private double pourcentage;
+    private double totalContre;
+    private double totalInterception;
 
     @ToString.Exclude
     @OneToOne(cascade = CascadeType.ALL)
