@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface JoueurService {
 
-    List <JoueurDTO> getAll();
+    List<JoueurDTO> getAll();
 
     JoueurDTO saveOrUpdate(JoueurDTO j) throws JoueurException;
 
@@ -20,8 +20,6 @@ public interface JoueurService {
     void suppressionJoueur(long id);
 
     List<JoueurDTO> getByTeamId(long id);
-
-
 
 
 }

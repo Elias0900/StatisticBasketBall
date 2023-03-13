@@ -8,6 +8,7 @@ public interface StatsService {
     StatsDTO saveOrUpdate(StatsDTO e, long id);
 
     List<StatsDTO> findByJoueurId(long id);
+
     List<StatsDTO> getAll();
 
     void suppression(long id);

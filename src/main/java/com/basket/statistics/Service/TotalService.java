@@ -16,9 +16,12 @@ public interface TotalService {
     double totalInterc(long joueurId, long matchId) throws TotalException;
 
     double totalRebond(long joueurId, long matchId) throws TotalException;
+
     double pourcentageLF(long id, long matchId) throws TotalException;
 
     double pourcentage(long joueurId, long matchId) throws TotalException;
+
     double pourcentageDeuxPts(long joueurId, long matchId) throws TotalException;
+
     double pourcentageTroisPts(long joueurId, long matchId) throws TotalException;
 }

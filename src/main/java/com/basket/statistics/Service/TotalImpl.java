@@ -1,28 +1,25 @@
 package com.basket.statistics.Service;
 
 import com.basket.statistics.MapperDto.DtoConvertisseur;
-
 import com.basket.statistics.Repo.StatsRepo;
 import com.basket.statistics.Repo.TotalRepo;
 import com.basket.statistics.dto.TotalDTO;
 import com.basket.statistics.entities.Stats;
 import com.basket.statistics.entities.Total;
-import javax.transaction.Transactional;
-
 import com.basket.statistics.exception.TotalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @Transactional
-public class TotalImpl implements TotalService{
+public class TotalImpl implements TotalService {
     @Autowired
     private TotalRepo repo;
 
     @Autowired
     private StatsRepo statsRepo;
-
-
 
 
     @Override
@@ -38,7 +35,7 @@ public class TotalImpl implements TotalService{
     @Override
     public double totalPoint(long joueurId, long matchId) throws TotalException {
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
-        if ( stats.getPaniersLoins() > 0 || stats.getPaniersProche() > 0 || stats.getLfMarque() > 0) {
+        if (stats.getPaniersLoins() > 0 || stats.getPaniersProche() > 0 || stats.getLfMarque() > 0) {
             Total total1 = stats.getTotal();
             double deuxPoints = stats.getPaniersProche();
             double troisPoints = stats.getPaniersLoins();
@@ -52,6 +49,7 @@ public class TotalImpl implements TotalService{
             throw new TotalException(0 + " Points");
         }
     }
+
     @Override
     public double totalPasse(long joueurId, long matchId) throws TotalException {
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
@@ -62,7 +60,7 @@ public class TotalImpl implements TotalService{
             TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto.getTotalPasseD();
         } else {
-           throw new TotalException(0 + " Passe Décisive !");
+            throw new TotalException(0 + " Passe Décisive !");
         }
     }
 
@@ -95,7 +93,7 @@ public class TotalImpl implements TotalService{
     }
 
     @Override
-    public double totalRebond( long joueurId, long matchId) throws TotalException {
+    public double totalRebond(long joueurId, long matchId) throws TotalException {
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
         if (stats.getRebondDeff() > 0 || stats.getRebondOff() > 0) {
             Total total1 = stats.getTotal();
@@ -103,8 +101,7 @@ public class TotalImpl implements TotalService{
             repo.save(total1);
             TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto.getTotalRebonds();
-        }
-        else {
+        } else {
             throw new TotalException("Aucun Rebonds pris !");
         }
     }
@@ -114,35 +111,35 @@ public class TotalImpl implements TotalService{
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
         Total total1 = stats.getTotal();
         if (stats.getTirRateProche() > 0 && stats.getPaniersProche() > 0) {
-            total1.setPourcentageDeuxPts((stats.getPaniersProche() / (stats.getTirRateProche() + stats.getPaniersProche()))*100);
+            total1.setPourcentageDeuxPts((stats.getPaniersProche() / (stats.getTirRateProche() + stats.getPaniersProche())) * 100);
             repo.save(total1);
             TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto.getPourcentageDeuxPts();
-        }else if (stats.getTirRateProche() == 0 && stats.getPaniersProche() > 0){
-                total1.setPourcentageDeuxPts(100.0);
-                repo.save(total1);
-                TotalDTO dto2 = DtoConvertisseur.convert(total1, TotalDTO.class);
-                return dto2.getPourcentageDeuxPts();
-            } else if (stats.getPaniersProche() == 0 && stats.getTirRateProche() > 0) {
-                total1.setPourcentageDeuxPts(0);
-                repo.save(total1);
-                TotalDTO dto3 = DtoConvertisseur.convert(total1, TotalDTO.class);
-                return dto3.getPourcentageDeuxPts();
-            } else {
+        } else if (stats.getTirRateProche() == 0 && stats.getPaniersProche() > 0) {
+            total1.setPourcentageDeuxPts(100.0);
+            repo.save(total1);
+            TotalDTO dto2 = DtoConvertisseur.convert(total1, TotalDTO.class);
+            return dto2.getPourcentageDeuxPts();
+        } else if (stats.getPaniersProche() == 0 && stats.getTirRateProche() > 0) {
+            total1.setPourcentageDeuxPts(0);
+            repo.save(total1);
+            TotalDTO dto3 = DtoConvertisseur.convert(total1, TotalDTO.class);
+            return dto3.getPourcentageDeuxPts();
+        } else {
             throw new TotalException("Aucun tir proche tenté !");
         }
     }
 
     @Override
-    public double pourcentageTroisPts( long joueurId, long matchId) throws TotalException {
+    public double pourcentageTroisPts(long joueurId, long matchId) throws TotalException {
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
         Total total1 = stats.getTotal();
         if (stats.getTirRateLoin() > 0 && stats.getPaniersLoins() > 0) {
-            total1.setPourcentageTroisPts((stats.getPaniersLoins() / (stats.getTirRateLoin() + stats.getPaniersLoins()))*100);
+            total1.setPourcentageTroisPts((stats.getPaniersLoins() / (stats.getTirRateLoin() + stats.getPaniersLoins())) * 100);
             repo.save(total1);
             TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto.getPourcentageTroisPts();
-        }else if (stats.getTirRateLoin() == 0 && stats.getPaniersLoins() > 0){
+        } else if (stats.getTirRateLoin() == 0 && stats.getPaniersLoins() > 0) {
             total1.setPourcentageDeuxPts(100.0);
             repo.save(total1);
             TotalDTO dto2 = DtoConvertisseur.convert(total1, TotalDTO.class);
@@ -158,26 +155,25 @@ public class TotalImpl implements TotalService{
     }
 
     @Override
-    public double pourcentageLF( long joueurId, long matchId) throws TotalException {
+    public double pourcentageLF(long joueurId, long matchId) throws TotalException {
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
         Total total1 = stats.getTotal();
         if (stats.getLfMarque() > 0 && stats.getLfRate() > 0) {
-            total1.setPourcentageLF((stats.getLfMarque() / (stats.getLfRate() + stats.getLfMarque()))*100);
+            total1.setPourcentageLF((stats.getLfMarque() / (stats.getLfRate() + stats.getLfMarque())) * 100);
             repo.save(total1);
             TotalDTO dto = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto.getPourcentageLF();
-        }else if (stats.getLfRate() == 0 && stats.getLfMarque() > 0){
+        } else if (stats.getLfRate() == 0 && stats.getLfMarque() > 0) {
             total1.setPourcentageDeuxPts(100.0);
             repo.save(total1);
             TotalDTO dto2 = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto2.getPourcentageLF();
-        }else if (stats.getLfMarque() == 0 && stats.getLfRate() > 0) {
+        } else if (stats.getLfMarque() == 0 && stats.getLfRate() > 0) {
             total1.setPourcentageDeuxPts(0);
             repo.save(total1);
             TotalDTO dto3 = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto3.getPourcentageLF();
-        }
-        else {
+        } else {
             throw new TotalException("Aucun Lancers-Franc proche tenté !");
         }
     }

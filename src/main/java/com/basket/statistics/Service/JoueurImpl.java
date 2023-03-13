@@ -4,12 +4,11 @@ import com.basket.statistics.MapperDto.DtoConvertisseur;
 import com.basket.statistics.Repo.JoueurRepo;
 import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.entities.Joueur;
-import javax.transaction.Transactional;
-
 import com.basket.statistics.exception.JoueurException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,7 @@ public class JoueurImpl implements JoueurService {
     public List<JoueurDTO> getAll() {
         List<Joueur> jList = jRepo.findAll();
         List<JoueurDTO> joueurDTOList = new ArrayList<>();
-        for (Joueur j : jList){
+        for (Joueur j : jList) {
             joueurDTOList.add(DtoConvertisseur.convert(j, JoueurDTO.class));
         }
         return joueurDTOList;
@@ -38,9 +37,9 @@ public class JoueurImpl implements JoueurService {
         Joueur jExistant = jRepo.getJoueurByNumero(joueur.getNumero());
         Joueur jExistantNom = jRepo.getJoueurByNom(joueur.getNom());
         Joueur jExistantPrenom = jRepo.getJoueurByPrenom(joueur.getPrenom());
-        if (jExistant != null ) {
+        if (jExistant != null) {
             throw new JoueurException("Ce numéro est déjà utilisé");
-        } else if (jExistantNom != null && jExistantPrenom != null ) {
+        } else if (jExistantNom != null && jExistantPrenom != null) {
             throw new JoueurException("Ce joueur existe déjà");
         } else {
             joueur = jRepo.saveAndFlush(joueur);
@@ -96,7 +95,7 @@ public class JoueurImpl implements JoueurService {
     public List<JoueurDTO> getByTeamId(long id) {
         List<Joueur> joueurList = jRepo.getJoueurByEquipeIdOrderByNumero(id);
         List<JoueurDTO> joueurDTOList = new ArrayList<>();
-        for (Joueur j : joueurList){
+        for (Joueur j : joueurList) {
             joueurDTOList.add(DtoConvertisseur.convert(j, JoueurDTO.class));
         }
         return joueurDTOList;

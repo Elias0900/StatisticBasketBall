@@ -1,8 +1,9 @@
 package com.basket.statistics.dto;
 
-import com.basket.statistics.entities.Equipe;
-import com.basket.statistics.entities.Stats;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 

@@ -1,7 +1,10 @@
 package com.basket.statistics.dto;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
@@ -11,14 +14,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class EquipeDTO implements Serializable {
 
-        private long id;
+    private long id;
 
-        private String nomEquipe;
+    private String nomEquipe;
 
 
-        private long joueurId;
+    private long joueurId;
 
-        private long matchId;
+    private long matchId;
 
 
 }

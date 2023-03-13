@@ -38,5 +38,4 @@ public interface TotalRepo extends JpaRepository<Total, Long> {
     double getAvgInter(@Param("joueurId") long joueurId);
 
 
-
 }

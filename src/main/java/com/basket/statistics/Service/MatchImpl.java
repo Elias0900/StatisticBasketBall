@@ -1,16 +1,17 @@
 package com.basket.statistics.Service;
 
 import com.basket.statistics.MapperDto.DtoConvertisseur;
-import com.basket.statistics.Repo.*;
+import com.basket.statistics.Repo.EquipeRepo;
+import com.basket.statistics.Repo.MatchRepo;
+import com.basket.statistics.Repo.StatsRepo;
+import com.basket.statistics.Repo.TotalRepo;
 import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.entities.*;
-
-import javax.transaction.Transactional;
-
 import com.basket.statistics.exception.MatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

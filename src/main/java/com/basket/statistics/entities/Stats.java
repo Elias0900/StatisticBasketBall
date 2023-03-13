@@ -1,12 +1,12 @@
 package com.basket.statistics.entities;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -38,7 +38,7 @@ public class Stats implements Serializable {
     @ManyToOne
     private Joueur joueur;
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Total total;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -47,7 +47,6 @@ public class Stats implements Serializable {
 
     @ManyToOne
     private Equipe equipe;
-
 
 
 }

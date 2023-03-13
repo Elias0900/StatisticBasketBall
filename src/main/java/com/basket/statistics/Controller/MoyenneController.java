@@ -21,7 +21,7 @@ public class MoyenneController {
 
     @GetMapping(value = "/points/{joueurId}")
     ResponseEntity<Double> avgPoint(@PathVariable("joueurId") long joueurId) {
-       return ResponseEntity.status(HttpStatus.OK).body(moyenneService.avgPoint(joueurId));
+        return ResponseEntity.status(HttpStatus.OK).body(moyenneService.avgPoint(joueurId));
     }
 
     @GetMapping(value = "/passe/{joueurId}")
@@ -40,12 +40,12 @@ public class MoyenneController {
     }
 
     @GetMapping(value = "/trois/{joueurId}")
-    ResponseEntity<Double> troispoints (@PathVariable("joueurId") long joueurId) {
+    ResponseEntity<Double> troispoints(@PathVariable("joueurId") long joueurId) {
         return ResponseEntity.status(HttpStatus.OK).body(moyenneService.avgPourcentage3Pts(joueurId));
     }
 
     @GetMapping(value = "/lf/{joueurId}")
-    ResponseEntity<Double> lf (@PathVariable("joueurId") long joueurId) {
+    ResponseEntity<Double> lf(@PathVariable("joueurId") long joueurId) {
         return ResponseEntity.status(HttpStatus.OK).body(moyenneService.avgPourcentageLF(joueurId));
     }
 
@@ -53,13 +53,14 @@ public class MoyenneController {
     ResponseEntity<Double> tir(@PathVariable("joueurId") long joueurId) {
         return ResponseEntity.status(HttpStatus.OK).body(moyenneService.shoot(joueurId));
     }
+
     @GetMapping(value = "/contre/{joueurId}")
     ResponseEntity<Double> contre(@PathVariable("joueurId") long joueurId) {
         return ResponseEntity.status(HttpStatus.OK).body(moyenneService.contre(joueurId));
     }
 
     @GetMapping(value = "/inter/{joueurId}")
-    ResponseEntity<Double> inter (@PathVariable("joueurId") long joueurId) {
+    ResponseEntity<Double> inter(@PathVariable("joueurId") long joueurId) {
         return ResponseEntity.status(HttpStatus.OK).body(moyenneService.inter(joueurId));
     }
 }

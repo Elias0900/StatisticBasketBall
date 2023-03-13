@@ -11,7 +11,4 @@ public interface EquipeRepo extends JpaRepository<Equipe, Long> {
     Equipe findByNomEquipe(@Param("nom") String name);
 
 
-
-
-
 }

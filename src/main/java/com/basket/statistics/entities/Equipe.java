@@ -1,12 +1,12 @@
 package com.basket.statistics.entities;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,14 +21,16 @@ public class Equipe implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String nomEquipe;
     @ToString.Exclude
-    @OneToMany(mappedBy = "equipe")
+    @OneToMany(mappedBy = "equipe", cascade = CascadeType.ALL)
     private List<Joueur> joueur;
     @ToString.Exclude
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Match> match;
 
-
+    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Stats>stats;
 }

@@ -1,14 +1,18 @@
 package com.basket.statistics.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MatchDTO  implements Serializable {
+public class MatchDTO implements Serializable {
 
     private long id;
     private long equipeDomicileId;

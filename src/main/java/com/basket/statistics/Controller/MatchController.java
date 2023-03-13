@@ -28,19 +28,19 @@ public class MatchController {
 
 
     @GetMapping
-    private ResponseEntity<List<MatchDTO>> tousLesMatchs(){
+    private ResponseEntity<List<MatchDTO>> tousLesMatchs() {
         List<MatchDTO> MatchDTOList = service.getAll();
-        return new ResponseEntity<>(MatchDTOList,HttpStatus.OK);
+        return new ResponseEntity<>(MatchDTOList, HttpStatus.OK);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
     private ResponseEntity<MatchDTO> modifierMatch(@RequestBody MatchDTO jDto) throws MatchException {
-        return  new ResponseEntity<>(service.saveOrUpdate(jDto),HttpStatus.OK);
+        return new ResponseEntity<>(service.saveOrUpdate(jDto), HttpStatus.OK);
 
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Long>suppression(@PathVariable("id") long id){
+    public ResponseEntity<Long> suppression(@PathVariable("id") long id) {
         service.suppressionMatch(id);
         return ResponseEntity.status(HttpStatus.OK).body(id);
     }
@@ -58,13 +58,13 @@ public class MatchController {
     }
 
     @GetMapping(value = "/scoredomicile3pts/{id}/joueur/{jid}")
-    private ResponseEntity<Integer> domicile3 (@PathVariable("id") long id, @PathVariable("jid") long jid) {
+    private ResponseEntity<Integer> domicile3(@PathVariable("id") long id, @PathVariable("jid") long jid) {
         int totalDTO = service.marquer3Point(id, jid);
         return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
     }
 
     @GetMapping(value = "/scoreext3pts/{id}/joueur/{jid}")
-    private ResponseEntity<Integer> ext3 (@PathVariable("id") long id, @PathVariable("jid") long jid) {
+    private ResponseEntity<Integer> ext3(@PathVariable("id") long id, @PathVariable("jid") long jid) {
         int totalDTO = service.marquer3PointExt(id, jid);
         return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
     }

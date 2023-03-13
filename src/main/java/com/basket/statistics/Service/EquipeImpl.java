@@ -4,12 +4,11 @@ import com.basket.statistics.MapperDto.DtoConvertisseur;
 import com.basket.statistics.Repo.EquipeRepo;
 import com.basket.statistics.dto.EquipeDTO;
 import com.basket.statistics.entities.Equipe;
-import javax.transaction.Transactional;
-
 import com.basket.statistics.exception.EquipeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,13 +21,17 @@ public class EquipeImpl implements EquipeService {
     private EquipeRepo equipeRepo;
 
     @Override
-    public List<EquipeDTO> findAll() {
+    public List<EquipeDTO> findAll() throws EquipeException {
         List<Equipe> equipeList = equipeRepo.findAll();
         List<EquipeDTO> equipeDTOS = new ArrayList<>();
-        for (Equipe e : equipeList) {
-            equipeDTOS.add(DtoConvertisseur.convert(e, EquipeDTO.class));
+        if (equipeList.isEmpty()){
+            throw new EquipeException("Il n'y a pas d'equipes enregistrées !");
+        } else {
+            for (Equipe e : equipeList) {
+                equipeDTOS.add(DtoConvertisseur.convert(e, EquipeDTO.class));
+            }
+            return equipeDTOS;
         }
-        return equipeDTOS;
     }
 
     @Override
@@ -37,6 +40,8 @@ public class EquipeImpl implements EquipeService {
         Equipe equipeExistant = equipeRepo.findByNomEquipe(equipe.getNomEquipe());
         if (equipeExistant != null) {
             throw new EquipeException("Cette équipe existe déjà");
+        } else if (equipe.getNomEquipe() == null) {
+            throw new EquipeException("Le nom d'équipe est obligatoire");
         } else {
             equipe = equipeRepo.saveAndFlush(equipe);
             return DtoConvertisseur.convert(equipe, EquipeDTO.class);
@@ -58,7 +63,6 @@ public class EquipeImpl implements EquipeService {
             throw new EquipeException("Cette équipe n'existe pas");
         }
     }
-
 
 
 }

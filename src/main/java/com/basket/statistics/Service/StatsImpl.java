@@ -7,12 +7,10 @@ import com.basket.statistics.Repo.StatsRepo;
 import com.basket.statistics.Repo.TotalRepo;
 import com.basket.statistics.dto.StatsDTO;
 import com.basket.statistics.entities.*;
-
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -137,8 +135,6 @@ public class StatsImpl implements StatsService {
     }
 
 
-
-
     @Override
     public StatsDTO tirTroisPoints(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
@@ -147,44 +143,25 @@ public class StatsImpl implements StatsService {
         Match match = mRepo.getReferenceById(matchId);
         if (equipe == match.getEquipeDomicileId()) {
             int scoreDom = match.getScoreDomicile();
-                int newScoreDom = scoreDom + 3;
-                match.setScoreDomicile(newScoreDom);
-                mRepo.save(match);
-                double currentValue = stats.getPaniersLoins(); // Récupération de la valeur actuelle du champ
-                double newValue = currentValue + 1; // Incrément de la valeur actuelle
-                stats.setPaniersLoins(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-                double tt = stats.getTirTotal();
-                double newTT = tt + 1;
-                stats.setTirTotal(newTT);
-                repo.save(stats);
-                return DtoConvertisseur.convert(stats, StatsDTO.class);
-            } else {
-                int scoreExt = match.getScoreExterieur();
-                int newScoreExt = scoreExt + 3;
-                match.setScoreExterieur(newScoreExt);
-                mRepo.save(match);
-                double currentValue = stats.getPaniersLoins(); // Récupération de la valeur actuelle du champ
-                double newValue = currentValue + 1; // Incrément de la valeur actuelle
-                stats.setPaniersLoins(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-                double tt = stats.getTirTotal();
-                double newTT = tt + 1;
-                stats.setTirTotal(newTT);
-                repo.save(stats);
-                return DtoConvertisseur.convert(stats, StatsDTO.class);
-            }
-
-        }
-
-
-
-
-    @Override
-    public StatsDTO tirTroisPointsRate(long joueurid, long matchId) {
-        Joueur joueur = jRepo.getJoueurById(joueurid);
-        Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getTirRateLoin(); // Récupération de la valeur actuelle du champ
+            int newScoreDom = scoreDom + 3;
+            match.setScoreDomicile(newScoreDom);
+            mRepo.save(match);
+            double currentValue = stats.getPaniersLoins(); // Récupération de la valeur actuelle du champ
             double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setTirRateLoin(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+            stats.setPaniersLoins(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+            double tt = stats.getTirTotal();
+            double newTT = tt + 1;
+            stats.setTirTotal(newTT);
+            repo.save(stats);
+            return DtoConvertisseur.convert(stats, StatsDTO.class);
+        } else {
+            int scoreExt = match.getScoreExterieur();
+            int newScoreExt = scoreExt + 3;
+            match.setScoreExterieur(newScoreExt);
+            mRepo.save(match);
+            double currentValue = stats.getPaniersLoins(); // Récupération de la valeur actuelle du champ
+            double newValue = currentValue + 1; // Incrément de la valeur actuelle
+            stats.setPaniersLoins(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
             double tt = stats.getTirTotal();
             double newTT = tt + 1;
             stats.setTirTotal(newTT);
@@ -192,53 +169,70 @@ public class StatsImpl implements StatsService {
             return DtoConvertisseur.convert(stats, StatsDTO.class);
         }
 
+    }
+
+
+    @Override
+    public StatsDTO tirTroisPointsRate(long joueurid, long matchId) {
+        Joueur joueur = jRepo.getJoueurById(joueurid);
+        Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
+        double currentValue = stats.getTirRateLoin(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setTirRateLoin(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        double tt = stats.getTirTotal();
+        double newTT = tt + 1;
+        stats.setTirTotal(newTT);
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
+
 
     @Override
     public StatsDTO ballonPerduAjout(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getBallonPerdu(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setBallonPerdu(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getBallonPerdu(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setBallonPerdu(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
 
 
     @Override
     public StatsDTO ajoutContre(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getContre(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setContre(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getContre(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setContre(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
 
 
     @Override
     public StatsDTO ajoutFautes(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getFautes(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setFautes(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getFautes(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setFautes(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
 
 
     @Override
     public StatsDTO ajoutPasse(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getPasseD(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setPasseD(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getPasseD(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setPasseD(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
 
     @Override
     public StatsDTO ajoutInterceptions(long joueurid, long matchId) {
@@ -256,24 +250,24 @@ public class StatsImpl implements StatsService {
     public StatsDTO ajoutRebondOff(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getRebondOff(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setRebondOff(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getRebondOff(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setRebondOff(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
 
 
     @Override
     public StatsDTO ajoutrebondDeff(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getRebondDeff(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setRebondDeff(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getRebondDeff(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setRebondDeff(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
+    }
 
     @Override
     public StatsDTO ajoutLFMarque(long joueurid, long matchId) {
@@ -281,41 +275,41 @@ public class StatsImpl implements StatsService {
         Equipe equipe = joueur.getEquipe();
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
         Match match = mRepo.getReferenceById(matchId);
-            if (equipe == match.getEquipeDomicileId()) {
-                int scoreDom = match.getScoreDomicile();
-                int newScoreDom = scoreDom + 1;
-                match.setScoreDomicile(newScoreDom);
-                mRepo.save(match);
-                double currentValue = stats.getLfMarque(); // Récupération de la valeur actuelle du champ
-                double newValue = currentValue + 1; // Incrément de la valeur actuelle
-                stats.setLfMarque(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-                repo.save(stats);
-                return DtoConvertisseur.convert(stats, StatsDTO.class);
-            } else {
-                int scoreExt = match.getScoreExterieur();
-                int newScoreExt = scoreExt + 1;
-                match.setScoreExterieur(newScoreExt);
-                mRepo.save(match);
-                double currentValue = stats.getLfMarque(); // Récupération de la valeur actuelle du champ
-                double newValue = currentValue + 1; // Incrément de la valeur actuelle
-                stats.setLfMarque(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-                repo.save(stats);
-                return DtoConvertisseur.convert(stats, StatsDTO.class);
-            }
-
+        if (equipe == match.getEquipeDomicileId()) {
+            int scoreDom = match.getScoreDomicile();
+            int newScoreDom = scoreDom + 1;
+            match.setScoreDomicile(newScoreDom);
+            mRepo.save(match);
+            double currentValue = stats.getLfMarque(); // Récupération de la valeur actuelle du champ
+            double newValue = currentValue + 1; // Incrément de la valeur actuelle
+            stats.setLfMarque(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+            repo.save(stats);
+            return DtoConvertisseur.convert(stats, StatsDTO.class);
+        } else {
+            int scoreExt = match.getScoreExterieur();
+            int newScoreExt = scoreExt + 1;
+            match.setScoreExterieur(newScoreExt);
+            mRepo.save(match);
+            double currentValue = stats.getLfMarque(); // Récupération de la valeur actuelle du champ
+            double newValue = currentValue + 1; // Incrément de la valeur actuelle
+            stats.setLfMarque(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+            repo.save(stats);
+            return DtoConvertisseur.convert(stats, StatsDTO.class);
         }
+
+    }
 
 
     @Override
     public StatsDTO ajoutLFRate(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
-            double currentValue = stats.getLfRate(); // Récupération de la valeur actuelle du champ
-            double newValue = currentValue + 1; // Incrément de la valeur actuelle
-            stats.setLfRate(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
-            repo.save(stats);
-            return DtoConvertisseur.convert(stats, StatsDTO.class);
-        }
+        double currentValue = stats.getLfRate(); // Récupération de la valeur actuelle du champ
+        double newValue = currentValue + 1; // Incrément de la valeur actuelle
+        stats.setLfRate(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        repo.save(stats);
+        return DtoConvertisseur.convert(stats, StatsDTO.class);
     }
+}
 
 

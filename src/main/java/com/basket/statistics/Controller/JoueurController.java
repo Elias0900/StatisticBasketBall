@@ -28,31 +28,31 @@ public class JoueurController {
 
 
     @GetMapping
-    private ResponseEntity<List<JoueurDTO>> tousLesJoueurs(){
+    private ResponseEntity<List<JoueurDTO>> tousLesJoueurs() {
         List<JoueurDTO> joueurDTOList = service.getAll();
-        return new ResponseEntity<>(joueurDTOList,HttpStatus.OK);
+        return new ResponseEntity<>(joueurDTOList, HttpStatus.OK);
     }
 
     @GetMapping(value = "/equipe/{id}")
-    private ResponseEntity<List<JoueurDTO>> joueurParTeam(@PathVariable("id") long id){
+    private ResponseEntity<List<JoueurDTO>> joueurParTeam(@PathVariable("id") long id) {
         List<JoueurDTO> joueurDTOList = service.getByTeamId(id);
-        return new ResponseEntity<>(joueurDTOList,HttpStatus.OK);
+        return new ResponseEntity<>(joueurDTOList, HttpStatus.OK);
     }
 
     @GetMapping(value = "{id}")
-    private ResponseEntity<JoueurDTO> findById(@PathVariable("id") long id) throws  JoueurException{
+    private ResponseEntity<JoueurDTO> findById(@PathVariable("id") long id) throws JoueurException {
         JoueurDTO joueurDTOList = service.findById(id);
-        return new ResponseEntity<>(joueurDTOList,HttpStatus.OK);
+        return new ResponseEntity<>(joueurDTOList, HttpStatus.OK);
     }
 
     @PutMapping(consumes = "application/json", produces = "application/json")
-    private ResponseEntity<JoueurDTO> modifierJoueur(@RequestBody JoueurDTO jDto)throws JoueurException{
-        return  new ResponseEntity<>(service.update(jDto),HttpStatus.OK);
+    private ResponseEntity<JoueurDTO> modifierJoueur(@RequestBody JoueurDTO jDto) throws JoueurException {
+        return new ResponseEntity<>(service.update(jDto), HttpStatus.OK);
 
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Long>suppression(@PathVariable("id") long id){
+    public ResponseEntity<Long> suppression(@PathVariable("id") long id) {
         service.suppressionJoueur(id);
         return ResponseEntity.status(HttpStatus.OK).body(id);
     }

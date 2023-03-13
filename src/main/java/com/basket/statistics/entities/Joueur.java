@@ -1,12 +1,12 @@
 package com.basket.statistics.entities;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -31,8 +31,6 @@ public class Joueur implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "joueur")
     @ToString.Exclude
     private List<Stats> stats;
-
-
 
 
 }

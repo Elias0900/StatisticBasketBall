@@ -1,7 +1,6 @@
 package com.basket.statistics.exception;
 
 
-
 import com.basket.statistics.dto.ApiErrorDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,20 +15,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class MyExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(value= {Exception.class})
-    protected ResponseEntity<?> handleConflict(Exception ex, WebRequest request){
+    @ExceptionHandler(value = {Exception.class})
+    protected ResponseEntity<?> handleConflict(Exception ex, WebRequest request) {
 
         ApiErrorDto error = new ApiErrorDto();
         error.setErrorCode(500);
         error.setMessage(ex.getMessage());
-        error.setPath(((ServletWebRequest)request).getRequest().getRequestURI());
+        error.setPath(((ServletWebRequest) request).getRequest().getRequestURI());
 
 
         return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, request);
 
     }
-
-
 
 
 }

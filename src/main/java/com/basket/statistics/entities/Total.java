@@ -1,11 +1,12 @@
 package com.basket.statistics.entities;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -27,6 +28,6 @@ public class Total {
     private double totalInterception;
 
     @ToString.Exclude
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Stats stats;
 }

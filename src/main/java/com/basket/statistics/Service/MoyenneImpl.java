@@ -8,10 +8,11 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class MoyenneImpl implements MoyenneService{
+public class MoyenneImpl implements MoyenneService {
 
     @Autowired
     private TotalRepo repo;
+
     @Override
     public double avgPoint(long joueurId) {
         return (repo.getAvgPointsJoueur(joueurId));
@@ -21,6 +22,7 @@ public class MoyenneImpl implements MoyenneService{
     public double avgPasse(long joueurId) {
         return (repo.getAvgPasseDJoueur(joueurId));
     }
+
     @Override
     public double avgRebond(long joueurId) {
         return (repo.getAvgRebondJoueur(joueurId));
@@ -55,7 +57,6 @@ public class MoyenneImpl implements MoyenneService{
     public double inter(long joueurId) {
         return (repo.getAvgInter(joueurId));
     }
-
 
 
 }

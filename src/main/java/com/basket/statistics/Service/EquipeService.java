@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EquipeService {
 
-    List<EquipeDTO> findAll();
+    List<EquipeDTO> findAll() throws EquipeException;
 
     EquipeDTO saveOrUpdate(EquipeDTO e) throws EquipeException;
 
