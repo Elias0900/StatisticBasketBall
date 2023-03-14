@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +23,9 @@ public class EquipeDTO implements Serializable {
     private long joueurId;
 
     private long matchId;
+
+    private List<Long>statsDomicileId;
+    private List<Long>statsExterieurId;
 
 
 }

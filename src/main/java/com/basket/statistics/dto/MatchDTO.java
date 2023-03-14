@@ -20,5 +20,4 @@ public class MatchDTO implements Serializable {
     private int scoreDomicile;
     private long scoreExterieur;
     private Date date;
-    private long statsId;
 }

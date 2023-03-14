@@ -41,12 +41,13 @@ public class Stats implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Total total;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @ToString.Exclude
-    private Match match;
+    private long matchId;
 
     @ManyToOne
-    private Equipe equipe;
+    private Equipe equipeDomicile;
+
+    @ManyToOne
+    private Equipe equipeExterieur;
 
 
 }

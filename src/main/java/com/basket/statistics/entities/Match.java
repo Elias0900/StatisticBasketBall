@@ -3,13 +3,11 @@ package com.basket.statistics.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -33,8 +31,6 @@ public class Match implements Serializable {
     private int scoreExterieur;
 
     private Date date;
-    @ToString.Exclude
-    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
-    private List<Stats> stats;
+
 
 }

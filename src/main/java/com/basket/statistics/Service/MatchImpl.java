@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,20 +49,19 @@ public class MatchImpl implements MatchService {
             match.setEquipeDomicileId(equipeDom);
             match.setEquipeExterieurId(equipeExt);
 
-            List<Stats> statsList = new ArrayList<>();
-
+            repo.saveAndFlush(match);
 
             for (Joueur joueur : equipeDom.getJoueur()) {
                 Stats stats = new Stats();
-                stats.setMatch(match);
-                stats.setEquipe(equipeDom);
-                stats.setJoueur(joueur);
-                statsList.add(stats);
-
                 Total total = new Total();
+                // Créer une nouvelle instance de Total et l'associer à la Stats
+                stats.setTotal(total);
                 total.setStats(stats);
-
-                joueur.setStats(Collections.singletonList(stats));
+                // Assigner les autres valeurs à Stats
+                stats.setMatchId(match.getId());
+                stats.setEquipeDomicile(equipeDom);
+                stats.setJoueur(joueur);
+                // Enregistrer l'entité
                 sRepo.save(stats);
                 tRepo.save(total);
             }
@@ -76,16 +74,16 @@ public class MatchImpl implements MatchService {
                 stats.setTotal(total);
                 total.setStats(stats);
                 // Assigner les autres valeurs à Stats
-                stats.setMatch(match);
-                stats.setEquipe(equipeExt);
+                stats.setMatchId(match.getId());
+                stats.setEquipeExterieur(equipeExt);
                 stats.setJoueur(joueur);
                 // Enregistrer l'entité
                 sRepo.save(stats);
                 tRepo.save(total);
             }
 
-            sRepo.saveAll(statsList);
-            repo.saveAndFlush(match);
+           // sRepo.saveAll(statsList);
+
 
             return DtoConvertisseur.convert(match, MatchDTO.class);
         } else {
@@ -133,7 +131,7 @@ public class MatchImpl implements MatchService {
             if (joueur.getId() == joueurId) {
                 List<Stats> stats = sRepo.findByJoueurId(joueurId);
                 for (Stats stats1 : stats) {
-                    if (stats1.getMatch().getId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
+                    if (stats1.getMatchId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
                         if (joueur.getEquipe() == match.getEquipeExterieurId()) {
                             int scoreExt = match.getScoreExterieur();
                             int newScoreExt = scoreExt + 2;
@@ -181,7 +179,7 @@ public class MatchImpl implements MatchService {
         for (Joueur joueur : joueurs) {
             List<Stats> stats = sRepo.findByJoueurId(joueurId);
             for (Stats stats1 : stats) {
-                if (stats1.getMatch().getId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
+                if (stats1.getMatchId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
                     if (joueur.getEquipe() == match.getEquipeExterieurId()) {
                         int scoreExt = match.getScoreExterieur();
                         int newScoreExt = scoreExt + 3;
@@ -227,7 +225,7 @@ public class MatchImpl implements MatchService {
         for (Joueur joueur : joueurs) {
             List<Stats> stats = sRepo.findByJoueurId(joueurId);
             for (Stats stats1 : stats) {
-                if (stats1.getMatch().getId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
+                if (stats1.getMatchId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
                     if (joueur.getEquipe() == match.getEquipeExterieurId()) {
                         int scoreExt = match.getScoreExterieur();
                         int newScoreExt = scoreExt + 1;

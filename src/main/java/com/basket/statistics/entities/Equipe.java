@@ -31,6 +31,10 @@ public class Equipe implements Serializable {
     private List<Match> match;
 
     @ToString.Exclude
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Stats>stats;
+    @OneToMany(mappedBy = "equipeDomicile",cascade = CascadeType.ALL)
+    private List<Stats>statsDomicile;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "equipeExterieur",cascade = CascadeType.ALL)
+    private List<Stats>statsExterieur;
 }

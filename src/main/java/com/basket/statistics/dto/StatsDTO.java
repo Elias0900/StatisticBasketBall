@@ -31,5 +31,9 @@ public class StatsDTO implements Serializable {
     private long joueurId;
     private long totalId;
 
+    private long equipeDomicileId;
+
+    private long equipeExterieurId;
+
 
 }
