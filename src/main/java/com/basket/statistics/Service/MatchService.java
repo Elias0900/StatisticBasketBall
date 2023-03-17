@@ -9,7 +9,7 @@ public interface MatchService {
     List<MatchDTO> getAll();
 
 
-    MatchDTO findById(long id);
+    MatchDTO findById(long id) throws MatchException;
 
     void suppressionMatch(long id);
 

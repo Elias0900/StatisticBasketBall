@@ -5,6 +5,7 @@ import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.exception.MatchException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,6 +31,12 @@ public class MatchController {
     @GetMapping
     private ResponseEntity<List<MatchDTO>> tousLesMatchs() {
         List<MatchDTO> MatchDTOList = service.getAll();
+        return new ResponseEntity<>(MatchDTOList, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    private ResponseEntity<MatchDTO> findById(@Param("id") long id) throws MatchException {
+        MatchDTO MatchDTOList = service.findById(id);
         return new ResponseEntity<>(MatchDTOList, HttpStatus.OK);
     }
 

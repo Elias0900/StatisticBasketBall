@@ -15,4 +15,7 @@ public interface EquipeService {
 
     EquipeDTO findById(long id) throws EquipeException;
 
+    EquipeDTO findByMatchId(long id) throws EquipeException;
+
+    EquipeDTO findByExtMatchId(long id) throws EquipeException;
 }

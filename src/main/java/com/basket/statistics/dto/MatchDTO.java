@@ -16,7 +16,10 @@ public class MatchDTO implements Serializable {
 
     private long id;
     private long equipeDomicileId;
+
+    private String equipeDomicileIdNomEquipe;
     private long equipeExterieurId;
+    private String equipeExterieurIdNomEquipe;
     private int scoreDomicile;
     private long scoreExterieur;
     private Date date;

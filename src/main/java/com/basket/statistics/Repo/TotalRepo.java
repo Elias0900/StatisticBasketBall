@@ -37,5 +37,6 @@ public interface TotalRepo extends JpaRepository<Total, Long> {
     @Query("SELECT AVG(t.totalInterception) FROM Total t JOIN t.stats s JOIN s.joueur joueur WHERE joueur.id= :joueurId")
     double getAvgInter(@Param("joueurId") long joueurId);
 
-
+    @Query("from Total t JOIN t.stats s JOIN s.joueur joueur WHERE joueur.id= :joueurId")
+    Total getTotalByJoueurId(@Param("joueurId")long joueurId);
 }

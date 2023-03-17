@@ -7,14 +7,40 @@ import com.basket.statistics.dto.TotalDTO;
 import com.basket.statistics.entities.Stats;
 import com.basket.statistics.entities.Total;
 import com.basket.statistics.exception.TotalException;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import static com.basket.statistics.Tools.PdfTools.generatePdfFromHtml;
 
 @Service
 @Transactional
 public class TotalImpl implements TotalService {
+
+    @Value("${app.storagefolder}")
+    private String storageFolder;
+
+    @Value(value = "${backend.url}")
+    private String backEndUrl;
+
+    @Autowired
+    private Configuration freemarkerConfig;
+
     @Autowired
     private TotalRepo repo;
 
@@ -197,4 +223,59 @@ public class TotalImpl implements TotalService {
             throw new TotalException("Aucun tir tentés !");
         }
     }
+
+    @Override
+    public String generatePdf(long totalId) throws Exception {
+        Optional<Total> total = repo.findById(totalId);
+        if (total.isPresent()) {
+            freemarkerConfig.setClassForTemplateLoading(this.getClass(), "/templates/template-total");
+            Template template = freemarkerConfig.getTemplate("template-total.ftl");
+
+            Map<String, Object> model = new HashMap<String, Object>();
+            model.put("backEndUrl", backEndUrl);
+
+            Total total1 = total.get();
+            model.put("total", total1);
+
+
+            String htmlContent = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+            String outputPdf = storageFolder + "/total-" + total1.getStats().getJoueur().getNom() + ".pdf";
+            generatePdfFromHtml(outputPdf, htmlContent);
+
+            return outputPdf;
+        }
+
+        return null;
+    }
+
+
+    @Override
+    public String generateTotalForJoueur(long joueurId) throws Exception {
+       Total total = repo.getTotalByJoueurId(joueurId);
+
+
+        String zipFile = storageFolder + "/total-" + joueurId + ".zip";
+        try {
+            File f = new File(zipFile);
+            if (f.exists())
+                f.delete();
+
+            Path zipFilePath = Files.createFile(Paths.get(zipFile));
+
+            // ZipOutputStream <= 1 à n ZipEntry
+            try (ZipOutputStream zos = new ZipOutputStream(Files.newOutputStream(zipFilePath))) {
+                    String outputPdf = generatePdf(total.getId());
+                    ZipEntry zipEntry = new ZipEntry("Total-joueur" + total.getStats().getJoueur().getNom() + ".pdf");
+                    zos.putNextEntry(zipEntry);
+                    zos.write(Files.readAllBytes(Paths.get(outputPdf)));
+                    zos.flush();
+                    zos.closeEntry();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return zipFile;
+    }
+
 }

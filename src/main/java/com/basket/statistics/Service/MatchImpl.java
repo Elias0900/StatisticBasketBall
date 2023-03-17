@@ -5,8 +5,10 @@ import com.basket.statistics.Repo.EquipeRepo;
 import com.basket.statistics.Repo.MatchRepo;
 import com.basket.statistics.Repo.StatsRepo;
 import com.basket.statistics.Repo.TotalRepo;
+import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.entities.*;
+import com.basket.statistics.exception.JoueurException;
 import com.basket.statistics.exception.MatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,16 @@ public class MatchImpl implements MatchService {
             MatchDTOList.add(DtoConvertisseur.convert(j, MatchDTO.class));
         }
         return MatchDTOList;
+    }
+
+    @Override
+    public MatchDTO findById(long id) throws MatchException {
+        Optional<Match> m = repo.findById(id);
+        if (m.isPresent()) {
+            return DtoConvertisseur.convert(m.get(), MatchDTO.class);
+        } else {
+            throw new MatchException("Ce match n'existe pas");
+        }
     }
 
     @Override
@@ -92,21 +104,36 @@ public class MatchImpl implements MatchService {
     }
 
 
-    @Override
-    public MatchDTO findById(long id) {
-        Optional<Match> j = repo.findById(id);
-        if (j.isPresent()) {
-            return DtoConvertisseur.convert(j, MatchDTO.class);
-        } else {
-            return null;
-        }
-    }
 
     @Override
     public void suppressionMatch(long id) {
-        repo.deleteById(id);
+        Match match = repo.getReferenceById(id);
+        Equipe equipe = match.getEquipeDomicileId();
+        Equipe equipeExt = match.getEquipeExterieurId();
 
+        List<Joueur> joueurs = equipe.getJoueur();
+        for (Joueur joueur : joueurs) {
+            List<Stats> stats = sRepo.findByJoueurId(joueur.getId());
+            for (Stats stats1 : stats) {
+                if (stats1.getMatchId() == match.getId() && stats1.getJoueur().getId() == joueur.getId()) {
+                    sRepo.deleteById(stats1.getId());
+                }
+            }
+            List<Joueur> joueursExt = equipeExt.getJoueur();
+            for (Joueur joueurExt : joueursExt) {
+                List<Stats> statsExt = sRepo.findByJoueurId(joueurExt.getId());
+                for (Stats stats2 : statsExt) {
+                    if (stats2.getMatchId() == match.getId() && stats2.getJoueur().getId() == joueurExt.getId()) {
+                        sRepo.deleteById(stats2.getId());
+                    }
+                }
+            }
+            repo.deleteById(id);
+
+        }
     }
+
+
 
     @Override
     public int marquer2Point(long matchId, long joueurId) {

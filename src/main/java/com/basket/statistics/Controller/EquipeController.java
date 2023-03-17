@@ -5,6 +5,7 @@ import com.basket.statistics.dto.EquipeDTO;
 import com.basket.statistics.exception.EquipeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,19 @@ public class EquipeController {
         List<EquipeDTO> equipeDTOS = service.findAll();
         return new ResponseEntity<>(equipeDTOS, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/dom/{id}")
+    private ResponseEntity<EquipeDTO> domByMatchId(@Param("id")long id) throws EquipeException {
+       EquipeDTO equipeDTOS = service.findByMatchId(id);
+        return new ResponseEntity<>(equipeDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/ext/{id}")
+    private ResponseEntity<EquipeDTO> extByMatchId(@Param("id")long id) throws EquipeException {
+        EquipeDTO equipeDTOS = service.findByExtMatchId(id);
+        return new ResponseEntity<>(equipeDTOS, HttpStatus.OK);
+    }
+
 
     @GetMapping(value = "/{id}")
     private ResponseEntity<EquipeDTO> getById(@PathVariable("id") long id) throws EquipeException {

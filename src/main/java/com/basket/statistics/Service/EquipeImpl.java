@@ -2,8 +2,10 @@ package com.basket.statistics.Service;
 
 import com.basket.statistics.MapperDto.DtoConvertisseur;
 import com.basket.statistics.Repo.EquipeRepo;
+import com.basket.statistics.Repo.MatchRepo;
 import com.basket.statistics.dto.EquipeDTO;
 import com.basket.statistics.entities.Equipe;
+import com.basket.statistics.entities.Match;
 import com.basket.statistics.exception.EquipeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class EquipeImpl implements EquipeService {
     @Autowired
     private EquipeRepo equipeRepo;
 
+    @Autowired
+    private MatchRepo matchRepo;
     @Override
     public List<EquipeDTO> findAll() throws EquipeException {
         List<Equipe> equipeList = equipeRepo.findAll();
@@ -62,6 +66,28 @@ public class EquipeImpl implements EquipeService {
         } else {
             throw new EquipeException("Cette équipe n'existe pas");
         }
+    }
+
+    @Override
+    public EquipeDTO findByMatchId(long id) throws EquipeException {
+        Optional<Match> match = matchRepo.findById(id);
+        if (match.isPresent()){
+            Equipe equipeDom = match.get().getEquipeDomicileId();
+            return DtoConvertisseur.convert(equipeDom, EquipeDTO.class);
+        }
+        return null;
+
+    }
+
+    @Override
+    public EquipeDTO findByExtMatchId(long id) throws EquipeException {
+        Optional<Match> match = matchRepo.findById(id);
+        if (match.isPresent()){
+            Equipe equipeExt = match.get().getEquipeExterieurId();
+            return DtoConvertisseur.convert(equipeExt, EquipeDTO.class);
+        }
+        return null;
+
     }
 
 
