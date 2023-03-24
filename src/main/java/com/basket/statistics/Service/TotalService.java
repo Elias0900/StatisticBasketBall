@@ -7,6 +7,8 @@ public interface TotalService {
 
     TotalDTO saveOrUpdate(TotalDTO totalDTO, long id, long matchId);
 
+    TotalDTO getTotalJoueur(long joueurId, long matchId) throws TotalException;
+
     double totalPoint(long joueurId, long matchId) throws TotalException;
 
     double totalContre(long joueurId, long matchId) throws TotalException;

@@ -33,6 +33,18 @@ public class TotalImpl implements TotalService {
     }
 
     @Override
+    public TotalDTO getTotalJoueur(long joueurId, long matchId) throws TotalException{
+        Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
+        if (stats != null){
+            Total total = stats.getTotal();
+            return DtoConvertisseur.convert(total, TotalDTO.class);
+        } else {
+            throw new TotalException("Le total n'est pas disponible");
+        }
+
+    }
+
+    @Override
     public double totalPoint(long joueurId, long matchId) throws TotalException {
         Stats stats = statsRepo.getStatsByJoueurIdAndMatchId(joueurId, matchId);
         if (stats.getPaniersLoins() > 0 || stats.getPaniersProche() > 0 || stats.getLfMarque() > 0) {
@@ -174,7 +186,7 @@ public class TotalImpl implements TotalService {
             TotalDTO dto3 = DtoConvertisseur.convert(total1, TotalDTO.class);
             return dto3.getPourcentageLF();
         } else {
-            throw new TotalException("Aucun Lancers-Franc proche tenté !");
+            throw new TotalException("Aucun Lancers-Franc tenté !");
         }
     }
 

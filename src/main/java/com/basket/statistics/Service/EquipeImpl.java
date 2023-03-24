@@ -4,6 +4,7 @@ import com.basket.statistics.MapperDto.DtoConvertisseur;
 import com.basket.statistics.Repo.EquipeRepo;
 import com.basket.statistics.Repo.MatchRepo;
 import com.basket.statistics.dto.EquipeDTO;
+import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.entities.Equipe;
 import com.basket.statistics.entities.Match;
 import com.basket.statistics.exception.EquipeException;
@@ -52,6 +53,9 @@ public class EquipeImpl implements EquipeService {
         }
 
     }
+
+
+
 
     @Override
     public void suppression(long id) {

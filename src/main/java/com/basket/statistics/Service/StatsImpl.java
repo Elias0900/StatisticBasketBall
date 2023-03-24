@@ -90,6 +90,15 @@ public class StatsImpl implements StatsService {
         Equipe equipe = joueur.getEquipe();
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
         Match match = mRepo.getReferenceById(matchId);
+
+        /** Ajout Points total **/
+        Total total = stats.getTotal();
+        double currentTotal = total.getTotalPoints();;
+        double newTotal = currentTotal + 2;
+        total.setTotalPoints(newTotal);
+        tRepo.save(total);
+
+        /** ajout du score + stats **/
         if (equipe == match.getEquipeDomicileId()) {
             int scoreDom = match.getScoreDomicile();
             int newScoreDom = scoreDom + 2;
@@ -102,6 +111,7 @@ public class StatsImpl implements StatsService {
             double newTT = tt + 1;
             stats.setTirTotal(newTT);
             repo.save(stats);
+
             return DtoConvertisseur.convert(stats, StatsDTO.class);
         } else {
             int scoreExt = match.getScoreExterieur();
@@ -117,6 +127,7 @@ public class StatsImpl implements StatsService {
             repo.save(stats);
             return DtoConvertisseur.convert(stats, StatsDTO.class);
         }
+
     }
 
 
@@ -141,6 +152,14 @@ public class StatsImpl implements StatsService {
         Equipe equipe = joueur.getEquipe();
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
         Match match = mRepo.getReferenceById(matchId);
+
+        /** Ajout Points total **/
+        Total total = stats.getTotal();
+        double currentTotal = total.getTotalPoints();;
+        double newTotal = currentTotal + 3;
+        total.setTotalPoints(newTotal);
+        tRepo.save(total);
+
         if (equipe == match.getEquipeDomicileId()) {
             int scoreDom = match.getScoreDomicile();
             int newScoreDom = scoreDom + 3;
@@ -191,6 +210,7 @@ public class StatsImpl implements StatsService {
     public StatsDTO ballonPerduAjout(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
+        Total total = stats.getTotal();
         double currentValue = stats.getBallonPerdu(); // Récupération de la valeur actuelle du champ
         double newValue = currentValue + 1; // Incrément de la valeur actuelle
         stats.setBallonPerdu(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
@@ -223,13 +243,19 @@ public class StatsImpl implements StatsService {
     }
 
 
+
     @Override
     public StatsDTO ajoutPasse(long joueurid, long matchId) {
         Joueur joueur = jRepo.getJoueurById(joueurid);
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
+        Total total = stats.getTotal();
         double currentValue = stats.getPasseD(); // Récupération de la valeur actuelle du champ
         double newValue = currentValue + 1; // Incrément de la valeur actuelle
         stats.setPasseD(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        double currentTotal = total.getTotalPasseD();;
+        double newTotal = currentTotal + 1;
+        total.setTotalPasseD(newTotal);
+        tRepo.save(total);
         repo.save(stats);
         return DtoConvertisseur.convert(stats, StatsDTO.class);
     }
@@ -241,6 +267,11 @@ public class StatsImpl implements StatsService {
         double currentValue = stats.getInterception(); // Récupération de la valeur actuelle du champ
         double newValue = currentValue + 1; // Incrément de la valeur actuelle
         stats.setInterception(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        Total total = stats.getTotal();
+        double currentTotal = total.getTotalInterception();;
+        double newTotal = currentTotal + 1;
+        total.setTotalInterception(newTotal);
+        tRepo.save(total);
         repo.save(stats);
         return DtoConvertisseur.convert(stats, StatsDTO.class);
     }
@@ -253,6 +284,11 @@ public class StatsImpl implements StatsService {
         double currentValue = stats.getRebondOff(); // Récupération de la valeur actuelle du champ
         double newValue = currentValue + 1; // Incrément de la valeur actuelle
         stats.setRebondOff(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        Total total = stats.getTotal();
+        double currentTotal = total.getTotalRebonds();;
+        double newTotal = currentTotal + 1;
+        total.setTotalRebonds(newTotal);
+        tRepo.save(total);
         repo.save(stats);
         return DtoConvertisseur.convert(stats, StatsDTO.class);
     }
@@ -265,6 +301,11 @@ public class StatsImpl implements StatsService {
         double currentValue = stats.getRebondDeff(); // Récupération de la valeur actuelle du champ
         double newValue = currentValue + 1; // Incrément de la valeur actuelle
         stats.setRebondDeff(newValue); // Mise à jour de la valeur du champ avec la nouvelle valeur incrémentée
+        Total total = stats.getTotal();
+        double currentTotal = total.getTotalRebonds();;
+        double newTotal = currentTotal + 1;
+        total.setTotalRebonds(newTotal);
+        tRepo.save(total);
         repo.save(stats);
         return DtoConvertisseur.convert(stats, StatsDTO.class);
     }
@@ -275,6 +316,14 @@ public class StatsImpl implements StatsService {
         Equipe equipe = joueur.getEquipe();
         Stats stats = repo.getStatsByJoueurIdAndMatchId(joueur.getId(), matchId);
         Match match = mRepo.getReferenceById(matchId);
+
+        /** Ajout Points total **/
+        Total total = stats.getTotal();
+        double currentTotal = total.getTotalPoints();;
+        double newTotal = currentTotal + 1;
+        total.setTotalPoints(newTotal);
+        tRepo.save(total);
+
         if (equipe == match.getEquipeDomicileId()) {
             int scoreDom = match.getScoreDomicile();
             int newScoreDom = scoreDom + 1;

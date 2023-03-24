@@ -2,6 +2,7 @@ package com.basket.statistics.Controller;
 
 import com.basket.statistics.Service.EquipeService;
 import com.basket.statistics.dto.EquipeDTO;
+import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.exception.EquipeException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class EquipeController {
         List<EquipeDTO> equipeDTOS = service.findAll();
         return new ResponseEntity<>(equipeDTOS, HttpStatus.OK);
     }
+
+
 
     @GetMapping(value = "/dom/{id}")
     private ResponseEntity<EquipeDTO> domByMatchId(@Param("id")long id) throws EquipeException {

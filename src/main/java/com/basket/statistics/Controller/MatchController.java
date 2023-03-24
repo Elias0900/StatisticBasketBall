@@ -3,6 +3,7 @@ package com.basket.statistics.Controller;
 import com.basket.statistics.Service.MatchService;
 import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.dto.MatchDTO;
+import com.basket.statistics.exception.EquipeException;
 import com.basket.statistics.exception.MatchException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,12 @@ public class MatchController {
     private ResponseEntity<List<JoueurDTO>> joueurDom(@PathVariable("matchId") long matchId) throws MatchException {
         List<JoueurDTO> joueurDTOS = service.getJoueurDomByMatch(matchId);
         return new ResponseEntity<>(joueurDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/equipe/{id}")
+    private ResponseEntity<List<MatchDTO>> findByEquipeId(@PathVariable("id") long id) throws EquipeException {
+        List<MatchDTO> matchDTOS = service.findAllByEquipeId(id);
+        return new ResponseEntity<>(matchDTOS, HttpStatus.OK);
     }
 
     @GetMapping(value = "/team/ext/{matchId}")

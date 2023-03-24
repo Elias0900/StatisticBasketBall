@@ -1,6 +1,7 @@
 package com.basket.statistics.Controller;
 
 import com.basket.statistics.Service.TotalService;
+import com.basket.statistics.dto.TotalDTO;
 import com.basket.statistics.exception.TotalException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class TotalController {
     @Autowired
     private ObjectMapper objectMapper;
 
+
+    @GetMapping(value = "/joueur/{id}/match/{matchId}")
+    private ResponseEntity<TotalDTO> total(@PathVariable("id") long id, @PathVariable("matchId") long matchId) throws TotalException {
+        TotalDTO totalDTO = service.getTotalJoueur(id, matchId);
+        return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
     @GetMapping(value = "/{id}/match/{matchId}")
     private ResponseEntity<Double> totalPoint(@PathVariable("id") long id, @PathVariable("matchId") long matchId) throws TotalException {
         double totalDTO = service.totalPoint(id, matchId);

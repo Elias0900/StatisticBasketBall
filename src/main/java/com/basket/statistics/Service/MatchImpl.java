@@ -8,6 +8,7 @@ import com.basket.statistics.Repo.TotalRepo;
 import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.entities.*;
+import com.basket.statistics.exception.EquipeException;
 import com.basket.statistics.exception.MatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -283,6 +284,24 @@ public class MatchImpl implements MatchService {
             return getJoueurDTOS(domicile);
         } else {
             throw new MatchException("Le match n'existe pas !");
+        }
+    }
+
+    @Override
+    public List<MatchDTO> findAllByEquipeId(long id) throws EquipeException {
+        List<Match> matchList = repo.findByEquipeDomicileIdId(id);
+        List<Match> matchListExt = repo.findByEquipeExterieurIdId(id);
+        List<MatchDTO> matchDTOS = new ArrayList<>();
+        if (matchList.isEmpty()){
+            throw new EquipeException("Il n'y a pas de matchs pour cette equipe !");
+        } else {
+            for (Match m : matchList) {
+                matchDTOS.add(DtoConvertisseur.convert(m, MatchDTO.class));
+            }
+            for (Match m : matchListExt) {
+                matchDTOS.add(DtoConvertisseur.convert(m, MatchDTO.class));
+            }
+            return matchDTOS;
         }
     }
 
