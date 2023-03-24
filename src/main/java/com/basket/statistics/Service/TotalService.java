@@ -25,7 +25,4 @@ public interface TotalService {
 
     double pourcentageTroisPts(long joueurId, long matchId) throws TotalException;
 
-    String generatePdf(long totalId) throws Exception;
-
-    String generateTotalForJoueur(long joueurId) throws Exception;
 }

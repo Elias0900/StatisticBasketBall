@@ -8,7 +8,6 @@ import com.basket.statistics.Repo.TotalRepo;
 import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.entities.*;
-import com.basket.statistics.exception.JoueurException;
 import com.basket.statistics.exception.MatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -274,6 +273,38 @@ public class MatchImpl implements MatchService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<JoueurDTO> getJoueurDomByMatch(long matchId) throws MatchException {
+        Optional<Match> match = repo.findById(matchId);
+        if (match.isPresent()){
+            Equipe domicile = match.get().getEquipeDomicileId();
+            return getJoueurDTOS(domicile);
+        } else {
+            throw new MatchException("Le match n'existe pas !");
+        }
+    }
+
+    @Override
+    public List<JoueurDTO> getJoueurExtByMatch(long matchId) throws MatchException {
+        Optional<Match> match = repo.findById(matchId);
+        if (match.isPresent()){
+            Equipe exterieur = match.get().getEquipeExterieurId();
+            return getJoueurDTOS(exterieur);
+        } else {
+            throw new MatchException("Le match n'existe pas !");
+        }
+    }
+
+    private List<JoueurDTO> getJoueurDTOS(Equipe equipe) {
+        List<Joueur> joueurs = equipe.getJoueur();
+        List<JoueurDTO> joueurDTOS = new ArrayList<>();
+        for (Joueur j : joueurs){
+            joueurDTOS.add(DtoConvertisseur.convert(j, JoueurDTO.class));
+            return joueurDTOS;
+        }
+        return null;
     }
 
 

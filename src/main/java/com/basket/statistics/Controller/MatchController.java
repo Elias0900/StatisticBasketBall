@@ -1,6 +1,7 @@
 package com.basket.statistics.Controller;
 
 import com.basket.statistics.Service.MatchService;
+import com.basket.statistics.dto.JoueurDTO;
 import com.basket.statistics.dto.MatchDTO;
 import com.basket.statistics.exception.MatchException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -86,6 +87,18 @@ public class MatchController {
     private ResponseEntity<Integer> extLF(@PathVariable("id") long id, @PathVariable("jid") long jid) {
         int totalDTO = service.marquer1PointExt(id, jid);
         return ResponseEntity.status(HttpStatus.OK).body(totalDTO);
+    }
+
+    @GetMapping(value = "/team/{matchId}")
+    private ResponseEntity<List<JoueurDTO>> joueurDom(@PathVariable("matchId") long matchId) throws MatchException {
+        List<JoueurDTO> joueurDTOS = service.getJoueurDomByMatch(matchId);
+        return new ResponseEntity<>(joueurDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/team/ext/{matchId}")
+    private ResponseEntity<List<JoueurDTO>> joueurExt(@PathVariable("matchId") long matchId) throws MatchException {
+        List<JoueurDTO> joueurDTOS = service.getJoueurExtByMatch(matchId);
+        return new ResponseEntity<>(joueurDTOS, HttpStatus.OK);
     }
 
 }
